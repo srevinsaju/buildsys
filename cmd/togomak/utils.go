@@ -15,11 +15,6 @@ func autoDetectFilePath(cwd string) string {
 	if err != nil {
 		panic(err)
 	}
-	mountPoint, err := mountinfo.Mounted(absPath)
-	if mountPoint {
-		log.Fatalf("Couldn't find %s. Searched until %s", meta.ConfigFileName, absPath)
-	}
-
 	p := path.Join(cwd, meta.ConfigFileName)
 	exists, err := afero.Exists(fs, p)
 	if err != nil {
@@ -37,6 +32,11 @@ func autoDetectFilePath(cwd string) string {
 
 	if exists {
 		return p2
+	}
+
+	mountPoint, err := mountinfo.Mounted(absPath)
+	if mountPoint {
+		log.Fatalf("Couldn't find %s. Searched until %s", meta.ConfigFileName, absPath)
 	}
 
 	return autoDetectFilePath(path.Join(cwd, ".."))

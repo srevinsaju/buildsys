@@ -8,16 +8,32 @@ import (
 	"os"
 )
 
-var Green = color.New(color.FgGreen).SprintFunc()
-var HiCyan = color.New(color.FgHiCyan).SprintFunc()
-var Red = color.New(color.FgRed).SprintFunc()
-var Bold = color.New(color.Bold).SprintFunc()
-var Blue = color.New(color.FgBlue).SprintFunc()
-var Grey = color.New(color.FgHiBlack).SprintFunc()
-var Yellow = color.New(color.FgYellow).SprintFunc()
-var HiYellow = color.New(color.FgHiYellow).SprintFunc()
-var Italic = color.New(color.Italic).SprintFunc()
-var Plus = color.New(color.FgHiWhite).SprintFunc()("+")
+func NewColor(value ...color.Attribute) *color.Color {
+	c := color.New(value...)
+	c.EnableColor()
+	return c
+}
+
+var Green = NewColor(color.FgGreen).SprintFunc()
+var Red = NewColor(color.FgRed).SprintFunc()
+var Bold = NewColor(color.Bold).SprintFunc()
+var Blue = NewColor(color.FgBlue).SprintFunc()
+var Grey = NewColor(color.FgHiBlack).SprintFunc()
+var Cyan = NewColor(color.FgCyan).SprintFunc()
+var White = NewColor(color.FgWhite).SprintFunc()
+var Yellow = NewColor(color.FgYellow).SprintFunc()
+var Magenta = NewColor(color.FgMagenta).SprintFunc()
+var Orange = NewColor(color.FgHiYellow).SprintFunc()
+var HiGreen = NewColor(color.FgHiGreen).SprintFunc()
+var HiBlue = NewColor(color.FgHiBlue).SprintFunc()
+var HiMagenta = NewColor(color.FgHiMagenta).SprintFunc()
+var HiBlack = NewColor(color.FgHiBlack).SprintFunc()
+var HiCyan = NewColor(color.FgHiCyan).SprintFunc()
+var HiWhite = NewColor(color.FgHiWhite).SprintFunc()
+var HiYellow = NewColor(color.FgHiYellow).SprintFunc()
+var HiRed = NewColor(color.FgHiRed).SprintFunc()
+var Italic = NewColor(color.Italic).SprintFunc()
+var Plus = NewColor(color.FgHiWhite).SprintFunc()("+")
 var SubStage = Grey("==>")
 var SubSubStage = Grey("-->")
 var Matrix = Blue("matrix")
@@ -60,8 +76,18 @@ var AnsiFunc = function.New(&function.Spec{
 	},
 })
 
-func Color(color string, message string) string {
-	switch color {
+func Color(c string, message string) string {
+	switch c {
+	case "error":
+		return Red(Bold(message))
+	case "success":
+		return Green(Bold(message))
+	case "warn":
+		return Yellow(Bold(message))
+	case "warning":
+		return Yellow(Bold(message))
+	case "info":
+		return Blue(Bold(message))
 	case "green":
 		return Green(message)
 	case "red":
@@ -75,9 +101,30 @@ func Color(color string, message string) string {
 	case "italic":
 		return Italic(message)
 	case "cyan":
-		return HiCyan(message)
+		return Cyan(message)
 	case "grey":
 		return Grey(message)
+	case "white":
+		return White(message)
+	case "magenta":
+		return Magenta(message)
+	case "orange":
+		return Orange(message)
+	case "hi-green":
+		return HiGreen(message)
+	case "hi-blue":
+		return HiBlue(message)
+	case "hi-magenta":
+		return HiMagenta(message)
+	case "hi-black":
+		return HiBlack(message)
+	case "hi-white":
+		return HiWhite(message)
+	case "hi-red":
+		return HiRed(message)
+	case "hi-cyan":
+		return HiCyan(message)
+
 	case "hi-yellow":
 		return HiYellow(message)
 	default:
