@@ -25,6 +25,6 @@ stage "paths" {
   script = <<-EOT
   echo path.module: ${path.module}
   echo path.cwd: ${path.cwd}
-  echo path.root: ${path.root}
+  echo path.root: ${ansifmt("green", path.root)}
   EOT
 }
