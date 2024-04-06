@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -10,7 +10,7 @@
         
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -31,7 +31,7 @@
         <!-- Custom theme stylesheets -->
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
@@ -61,31 +61,38 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
+            var body = document.querySelector('body');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html" class="active"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="features/introduction.html"><strong aria-hidden="true">2.</strong> Features</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="features/concurrency.html"><strong aria-hidden="true">2.1.</strong> Concurrency</a></li><li class="chapter-item expanded "><a href="features/dependency.html"><strong aria-hidden="true">2.2.</strong> Dependency Resolution</a></li><li class="chapter-item expanded "><a href="features/interpolation.html"><strong aria-hidden="true">2.3.</strong> Interpolation</a></li><li class="chapter-item expanded "><a href="features/macros.html"><strong aria-hidden="true">2.4.</strong> Reusable Stages</a></li><li class="chapter-item expanded "><a href="features/daemonizing.html"><strong aria-hidden="true">2.5.</strong> Daemonizing</a></li><li class="chapter-item expanded "><a href="features/docker.html"><strong aria-hidden="true">2.6.</strong> Container Support</a></li><li class="chapter-item expanded "><a href="features/outputs.html"><strong aria-hidden="true">2.7.</strong> Outputs</a></li></ol></li><li class="chapter-item expanded "><a href="cli/introduction.html"><strong aria-hidden="true">3.</strong> Command Line Interface</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="cli/usage.html"><strong aria-hidden="true">3.1.</strong> Usage</a></li></ol></li><li class="chapter-item expanded "><a href="configuration/introduction.html"><strong aria-hidden="true">4.</strong> Configuration</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="configuration/togomak.html"><strong aria-hidden="true">4.1.</strong> Togomak</a></li><li class="chapter-item expanded "><a href="configuration/stage.html"><strong aria-hidden="true">4.2.</strong> Stage</a></li><li class="chapter-item expanded "><a href="configuration/locals.html"><strong aria-hidden="true">4.3.</strong> Locals</a></li><li class="chapter-item expanded "><a href="configuration/data.html"><strong aria-hidden="true">4.4.</strong> Data</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="configuration/data_env.html"><strong aria-hidden="true">4.4.1.</strong> data.env</a></li><li class="chapter-item expanded "><a href="configuration/data_prompt.html"><strong aria-hidden="true">4.4.2.</strong> data.prompt</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.4.3.</strong> data.file</div></li><li class="chapter-item expanded "><a href="configuration/data_git.html"><strong aria-hidden="true">4.4.4.</strong> data.git</a></li></ol></li><li class="chapter-item expanded "><a href="configuration/macro.html"><strong aria-hidden="true">4.5.</strong> Macro</a></li><li class="chapter-item expanded "><a href="configuration/import.html"><strong aria-hidden="true">4.6.</strong> Import</a></li></ol></li><li class="chapter-item expanded "><a href="contrib/plugins/introduction.html"><strong aria-hidden="true">5.</strong> Plugins</a></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">6.</strong> Contributing</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -116,9 +123,9 @@
                                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -178,7 +185,7 @@
 <h3 id="flexibility-and-extensibility"><a class="header" href="#flexibility-and-extensibility">Flexibility and Extensibility</a></h3>
 <p>Togomak supports IPC-based plugins, allowing you to enhance its functionality using Golang or Python. With this capability, you can customize and extend Togomak to suit your specific needs, making it a truly versatile tool for your CICD build systems. Leveraging the power of <code>hashicorp/go-plugin</code>, the same plugin system used by Terraform, Togomak offers extensive configuration capabilities for your CICD build systems. Customize and fine-tune your workflows with ease using this robust and battle-tested plugin system.</p>
 <h3 id="declarative-configuration"><a class="header" href="#declarative-configuration">Declarative Configuration</a></h3>
-<p>Forget complex configuration setups! Togomak uses a declarative HCL file to define your builds. This makes it straightforward to specify your requirements, ensuring a smooth and hassle-free configuration process. You can now even write your own parsers in any of your favorite languages to write a complex CICD pipeline now. </p>
+<p>Forget complex configuration setups! Togomak uses a declarative HCL file to define your builds. This makes it straightforward to specify your requirements, ensuring a smooth and hassle-free configuration process. You can now even write your own parsers in any of your favorite languages to write a complex CICD pipeline now.</p>
 <h3 id="local-runner-system"><a class="header" href="#local-runner-system">Local Runner System</a></h3>
 <p>Togomak's local runner system is designed to run anywhere. You can detach it and execute your builds in your preferred environment, providing the flexibility and convenience you need as a developer. Say goodbye to limitations and run your builds wherever you choose.</p>
 <h3 id="remote-tracking-system"><a class="header" href="#remote-tracking-system">Remote Tracking System</a></h3>
@@ -187,10 +194,10 @@
 </blockquote>
 <p>Collaboration made easy! Togomak includes a remote tracking server that securely stores your build logs and triggers builds through a user-friendly UI. Now you can share your build progress and collaborate with ease, whether you're working locally or on the cloud.</p>
 <h2 id="whats-with-the-name"><a class="header" href="#whats-with-the-name">What's with the name?</a></h2>
-<p>Togomak is a playful fusion of &quot;tokamak&quot; and &quot;to go and make.&quot; &quot;Tokamak&quot; refers to a magnetic plasma holding device used in fusion reactors, symbolizing Togomak's aim to provide a solid framework for managing CICD processes. The implementation of Togomak in Golang represents the &quot;to go and make&quot; aspect, leveraging Golang's simplicity, performance, and concurrency to deliver a powerful and efficient solution for your CICD requirements. Together, these elements embody Togomak's commitment to stability, adaptability, and productivity in the world of CICD.</p>
+<p>Togomak is a playful fusion of "tokamak" and "to go and make." "Tokamak" refers to a magnetic plasma holding device used in fusion reactors, symbolizing Togomak's aim to provide a solid framework for managing CICD processes. The implementation of Togomak in Golang represents the "to go and make" aspect, leveraging Golang's simplicity, performance, and concurrency to deliver a powerful and efficient solution for your CICD requirements. Together, these elements embody Togomak's commitment to stability, adaptability, and productivity in the world of CICD.</p>
 <h3 id="okay-thats-a-lot-of-talk-how-do-you-pronounce-it-"><a class="header" href="#okay-thats-a-lot-of-talk-how-do-you-pronounce-it-">Okay, that's a lot of talk. How do you pronounce it-</a></h3>
-<p>toh-goh-mak. </p>
-<p>For the geeky users out there, Togomak is pronounced as &quot;/toʊˈɡoʊˌmæk/.&quot;</p>
+<p>toh-goh-mak.</p>
+<p>For the geeky users out there, Togomak is pronounced as "/toʊˈɡoʊˌmæk/."</p>
 <h2 id="contribute"><a class="header" href="#contribute">Contribute</a></h2>
 <p>Togomak is an open-source project and welcomes contributions from the community. If you have ideas for new features, bug fixes, or improvements, we'd love to hear from you! Check out our <a href="./contributing.html">contribution guidelines</a> to learn how you can get involved.</p>
 
@@ -199,7 +206,7 @@
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
 
-                            <a rel="next" href="features/introduction.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="features/introduction.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -210,7 +217,7 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
 
-                    <a rel="next" href="features/introduction.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="features/introduction.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

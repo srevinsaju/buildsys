@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>togomak</title>
-        <meta name="robots" content="noindex" />
+        <meta name="robots" content="noindex">
 
 
         <!-- Custom HTML head -->
         
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -32,7 +32,7 @@
         <!-- Custom theme stylesheets -->
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
@@ -62,31 +62,38 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
+            var body = document.querySelector('body');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="features/introduction.html"><strong aria-hidden="true">2.</strong> Features</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="features/concurrency.html"><strong aria-hidden="true">2.1.</strong> Concurrency</a></li><li class="chapter-item expanded "><a href="features/dependency.html"><strong aria-hidden="true">2.2.</strong> Dependency Resolution</a></li><li class="chapter-item expanded "><a href="features/interpolation.html"><strong aria-hidden="true">2.3.</strong> Interpolation</a></li><li class="chapter-item expanded "><a href="features/macros.html"><strong aria-hidden="true">2.4.</strong> Reusable Stages</a></li><li class="chapter-item expanded "><a href="features/daemonizing.html"><strong aria-hidden="true">2.5.</strong> Daemonizing</a></li><li class="chapter-item expanded "><a href="features/docker.html"><strong aria-hidden="true">2.6.</strong> Container Support</a></li><li class="chapter-item expanded "><a href="features/outputs.html"><strong aria-hidden="true">2.7.</strong> Outputs</a></li></ol></li><li class="chapter-item expanded "><a href="cli/introduction.html"><strong aria-hidden="true">3.</strong> Command Line Interface</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="cli/usage.html"><strong aria-hidden="true">3.1.</strong> Usage</a></li></ol></li><li class="chapter-item expanded "><a href="configuration/introduction.html"><strong aria-hidden="true">4.</strong> Configuration</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="configuration/togomak.html"><strong aria-hidden="true">4.1.</strong> Togomak</a></li><li class="chapter-item expanded "><a href="configuration/stage.html"><strong aria-hidden="true">4.2.</strong> Stage</a></li><li class="chapter-item expanded "><a href="configuration/locals.html"><strong aria-hidden="true">4.3.</strong> Locals</a></li><li class="chapter-item expanded "><a href="configuration/data.html"><strong aria-hidden="true">4.4.</strong> Data</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="configuration/data_env.html"><strong aria-hidden="true">4.4.1.</strong> data.env</a></li><li class="chapter-item expanded "><a href="configuration/data_prompt.html"><strong aria-hidden="true">4.4.2.</strong> data.prompt</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.4.3.</strong> data.file</div></li><li class="chapter-item expanded "><a href="configuration/data_git.html"><strong aria-hidden="true">4.4.4.</strong> data.git</a></li></ol></li><li class="chapter-item expanded "><a href="configuration/macro.html"><strong aria-hidden="true">4.5.</strong> Macro</a></li><li class="chapter-item expanded "><a href="configuration/import.html"><strong aria-hidden="true">4.6.</strong> Import</a></li></ol></li><li class="chapter-item expanded "><a href="contrib/plugins/introduction.html"><strong aria-hidden="true">5.</strong> Plugins</a></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">6.</strong> Contributing</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -117,9 +124,9 @@
                                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -179,7 +186,7 @@
 <h3 id="flexibility-and-extensibility"><a class="header" href="#flexibility-and-extensibility">Flexibility and Extensibility</a></h3>
 <p>Togomak supports IPC-based plugins, allowing you to enhance its functionality using Golang or Python. With this capability, you can customize and extend Togomak to suit your specific needs, making it a truly versatile tool for your CICD build systems. Leveraging the power of <code>hashicorp/go-plugin</code>, the same plugin system used by Terraform, Togomak offers extensive configuration capabilities for your CICD build systems. Customize and fine-tune your workflows with ease using this robust and battle-tested plugin system.</p>
 <h3 id="declarative-configuration"><a class="header" href="#declarative-configuration">Declarative Configuration</a></h3>
-<p>Forget complex configuration setups! Togomak uses a declarative HCL file to define your builds. This makes it straightforward to specify your requirements, ensuring a smooth and hassle-free configuration process. You can now even write your own parsers in any of your favorite languages to write a complex CICD pipeline now. </p>
+<p>Forget complex configuration setups! Togomak uses a declarative HCL file to define your builds. This makes it straightforward to specify your requirements, ensuring a smooth and hassle-free configuration process. You can now even write your own parsers in any of your favorite languages to write a complex CICD pipeline now.</p>
 <h3 id="local-runner-system"><a class="header" href="#local-runner-system">Local Runner System</a></h3>
 <p>Togomak's local runner system is designed to run anywhere. You can detach it and execute your builds in your preferred environment, providing the flexibility and convenience you need as a developer. Say goodbye to limitations and run your builds wherever you choose.</p>
 <h3 id="remote-tracking-system"><a class="header" href="#remote-tracking-system">Remote Tracking System</a></h3>
@@ -188,10 +195,10 @@
 </blockquote>
 <p>Collaboration made easy! Togomak includes a remote tracking server that securely stores your build logs and triggers builds through a user-friendly UI. Now you can share your build progress and collaborate with ease, whether you're working locally or on the cloud.</p>
 <h2 id="whats-with-the-name"><a class="header" href="#whats-with-the-name">What's with the name?</a></h2>
-<p>Togomak is a playful fusion of &quot;tokamak&quot; and &quot;to go and make.&quot; &quot;Tokamak&quot; refers to a magnetic plasma holding device used in fusion reactors, symbolizing Togomak's aim to provide a solid framework for managing CICD processes. The implementation of Togomak in Golang represents the &quot;to go and make&quot; aspect, leveraging Golang's simplicity, performance, and concurrency to deliver a powerful and efficient solution for your CICD requirements. Together, these elements embody Togomak's commitment to stability, adaptability, and productivity in the world of CICD.</p>
+<p>Togomak is a playful fusion of "tokamak" and "to go and make." "Tokamak" refers to a magnetic plasma holding device used in fusion reactors, symbolizing Togomak's aim to provide a solid framework for managing CICD processes. The implementation of Togomak in Golang represents the "to go and make" aspect, leveraging Golang's simplicity, performance, and concurrency to deliver a powerful and efficient solution for your CICD requirements. Together, these elements embody Togomak's commitment to stability, adaptability, and productivity in the world of CICD.</p>
 <h3 id="okay-thats-a-lot-of-talk-how-do-you-pronounce-it-"><a class="header" href="#okay-thats-a-lot-of-talk-how-do-you-pronounce-it-">Okay, that's a lot of talk. How do you pronounce it-</a></h3>
-<p>toh-goh-mak. </p>
-<p>For the geeky users out there, Togomak is pronounced as &quot;/toʊˈɡoʊˌmæk/.&quot;</p>
+<p>toh-goh-mak.</p>
+<p>For the geeky users out there, Togomak is pronounced as "/toʊˈɡoʊˌmæk/."</p>
 <h2 id="contribute"><a class="header" href="#contribute">Contribute</a></h2>
 <p>Togomak is an open-source project and welcomes contributions from the community. If you have ideas for new features, bug fixes, or improvements, we'd love to hear from you! Check out our <a href="./contributing.html">contribution guidelines</a> to learn how you can get involved.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="features"><a class="header" href="#features">Features</a></h1>
@@ -204,117 +211,117 @@
 <p>Togomak uses concurrency, by default. The number of stages
 run in parallel, is theoritically infinity (see <a href="https://stackoverflow.com/questions/8509152/max-number-of-goroutines">goroutines</a>).
 The number of stages run in parallel depends on the <a href="features/./dependency.html">graph</a>
-derived from the pipeline. </p>
+derived from the pipeline.</p>
 <p>Say, four stages are completely independent of each of other.
 The number of stages run concurrently would be 4.
-Similarly, if stage A runs independently, but B, C, D depends 
-on A, the maximum number of stages that will run in parallel would 
-be 3. </p>
-<p>When <code>togomak -n</code> or <code>togomak --dry-run</code> is used, concurrency 
-is disabled, so that the command output remains readable. </p>
+Similarly, if stage A runs independently, but B, C, D depends
+on A, the maximum number of stages that will run in parallel would
+be 3.</p>
+<p>When <code>togomak -n</code> or <code>togomak --dry-run</code> is used, concurrency
+is disabled, so that the command output remains readable.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dependency-resolution"><a class="header" href="#dependency-resolution">Dependency Resolution</a></h1>
-<p>togomak uses native dependency resolution, based on references within their attributes. 
+<p>togomak uses native dependency resolution, based on references within their attributes.
 Let's take a look at this example:</p>
-<pre><code class="language-hcl">stage &quot;alice&quot; {
-    script = &quot;echo hello world&quot;
+<pre><code class="language-hcl">stage "alice" {
+    script = "echo hello world"
 }
 
-stage &quot;bob&quot; {
-    script = &quot;echo waiting for ${stage.alice.id}&quot;
+stage "bob" {
+    script = "echo waiting for ${stage.alice.id}"
 }
 </code></pre>
 <p>In the above example, <code>stage.alice</code> naturally becomes a dependency of <code>stage.bob</code>.
 However, you can also explicitly specify dependencies if you would like to:</p>
 <pre><code class="language-hcl">
-stage &quot;alice&quot; {
-    script = &quot;hello world&quot;
+stage "alice" {
+    script = "hello world"
 }
 
-stage &quot;bob&quot; {
+stage "bob" {
     depends_on = [stage.alice]
-    script = &quot;hello bob&quot;
+    script = "hello bob"
 }
 </code></pre>
 <h2 id="data-evaluation"><a class="header" href="#data-evaluation">Data evaluation</a></h2>
-<p><a href="features/../configuration/data.html">Data blocks</a> are lazily evaluated. 
+<p><a href="features/../configuration/data.html">Data blocks</a> are lazily evaluated.
 Data blocks will be only evaluated before the stage requiring them, gets
-executed. </p>
-<pre><code class="language-hcl">stage &quot;bob&quot; {
-    script = &quot;echo Hello World&quot;
+executed.</p>
+<pre><code class="language-hcl">stage "bob" {
+    script = "echo Hello World"
 }
 
-data &quot;env&quot; &quot;bob_name&quot; {
-    default = &quot;Bob Ross&quot;
+data "env" "bob_name" {
+    default = "Bob Ross"
 }
 
-stage &quot;alice&quot; {
-        script = &quot;echo This is an environment variable: ${data.env.bob_name.value}&quot;
+stage "alice" {
+        script = "echo This is an environment variable: ${data.env.bob_name.value}"
 }
 </code></pre>
 <p>In the above example, the order of execution would be <code>stage.bob</code> and <code>env.bob_name</code> in parallel, and then <code>stage.alice</code>.</p>
 <p>If you would like to disable concurrency, and let all the execution happen synchronously and linearly,
-you can disable concurrency on <a href="features/../configuration/togomak.html#concurrency"><code>togomak.pipeline.concurrency</code></a> options. </p>
+you can disable concurrency on <a href="features/../configuration/togomak.html#concurrency"><code>togomak.pipeline.concurrency</code></a> options.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="interpolation"><a class="header" href="#interpolation">Interpolation</a></h1>
 <p>String interpolation is a native feature of togomak.
 It uses similarly named functions from Terraform, and has a lot of helper scripts
 to achieve the same.</p>
 <p>Let's take an example:</p>
 <pre><code class="language-hcl">
-stage &quot;hello_world&quot; {
-    script = &quot;echo ${upper('hello world')}&quot;
+stage "hello_world" {
+    script = "echo ${upper('hello world')}"
 }
 </code></pre>
 <p>The above stage prints <code>HELLO WORLD</code> to standard output, thanks to the <a href="features/../functions.html#upper">upper</a>
 helper function.</p>
 <p>Similarly, you can even do math!</p>
-<pre><code class="language-hcl">stage &quot;i_can_calculate&quot; {
-    script = &quot;echo 1 plus 2 is ${1 + 2}&quot;
+<pre><code class="language-hcl">stage "i_can_calculate" {
+    script = "echo 1 plus 2 is ${1 + 2}"
 }
 </code></pre>
 <p>For an incomplete list of functions, take a look at the detailed <a href="features/../functions.html"><code>functions</code></a> page.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="reusable-stages"><a class="header" href="#reusable-stages">Reusable Stages</a></h1>
-<p>Sometimes, you might have run into a scenario where you would like to 
-repeat the same boring task multiple times in the same pipeline. </p>
-<p>Your first thought might be a shell script, with custom arguments 
+<p>Sometimes, you might have run into a scenario where you would like to
+repeat the same boring task multiple times in the same pipeline.</p>
+<p>Your first thought might be a shell script, with custom arguments
 as parameters, but maintaining these pipelines over multiple places
-would be a hassle. A single pipeline is already complicated enough in my opinion. </p>
+would be a hassle. A single pipeline is already complicated enough in my opinion.</p>
 <p><code>togomak</code> provides a feature called <code>macros</code> which are re-usable stages.
-You can write a stage once, with a set of parameters, and re-use them 
+You can write a stage once, with a set of parameters, and re-use them
 in multiple stages later. Let's see how:</p>
 <pre><code class="language-tf">togomak {
   version = 2
 }
 
-macro &quot;explode&quot; {
-  stage &quot;explode&quot; {
+macro "explode" {
+  stage "explode" {
     script = &lt;&lt;-EOT
         for i in $(seq 1 10); do
           sleep 0.1
-          echo &quot;${param.eva}: Loading $i...&quot;
+          echo "${param.eva}: Loading $i..."
         done
 
-        echo &quot;${param.eva}: entry plug connected! pilot ${param.pilot} synchronized! 🤖&quot;
+        echo "${param.eva}: entry plug connected! pilot ${param.pilot} synchronized! 🤖"
         EOT
   }
 }
 
 
-stage &quot;entry_plug_eva01&quot; {
+stage "entry_plug_eva01" {
   use {
     macro = macro.explode
     parameters = {
-      pilot = &quot;Shinji Ikari 🙅‍♂️&quot;
-      eva   = &quot;01&quot;
+      pilot = "Shinji Ikari 🙅‍♂️"
+      eva   = "01"
     }
   }
 }
 
-stage &quot;entry_plug_eva02&quot; {
+stage "entry_plug_eva02" {
   use {
     macro = macro.explode
     parameters = {
-      pilot = &quot;Asuka Langley Soryu 🙅‍♀️&quot;
-      eva   = &quot;02&quot;
+      pilot = "Asuka Langley Soryu 🙅‍♀️"
+      eva   = "02"
     }
   }
 }
@@ -322,12 +329,12 @@ stage &quot;entry_plug_eva02&quot; {
 
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="daemonizing"><a class="header" href="#daemonizing">Daemonizing</a></h1>
-<p>Sometimes, you might want to run a stage in the background, for example, 
-an HTTP API server, and continue with multiple integrations tests on 
-the same HTTP API server. In another scenario, you might just want 
+<p>Sometimes, you might want to run a stage in the background, for example,
+an HTTP API server, and continue with multiple integrations tests on
+the same HTTP API server. In another scenario, you might just want
 two live reloading servers for two frontends running in parallel.
 Or, maybe you just need a <code>postgres</code> database docker container running.
-In these cases, <code>togomak</code> takes care of all the process management 
+In these cases, <code>togomak</code> takes care of all the process management
 required for handling these daemon-like long-running process.</p>
 <p>Here is a sample use case, directly from <code>togomak</code>'s <code>togomak.hcl</code></p>
 <pre><code class="language-hcl">togomak {
@@ -335,52 +342,52 @@ required for handling these daemon-like long-running process.</p>
 }
 
 
-stage &quot;fmt&quot; {
-  script = &quot;go fmt github.com/srevinsaju/togomak/v1/...&quot;
+stage "fmt" {
+  script = "go fmt github.com/srevinsaju/togomak/v1/..."
 }
 
-stage &quot;vet&quot; {
-  script = &quot;go vet github.com/srevinsaju/togomak/v1/...&quot;
+stage "vet" {
+  script = "go vet github.com/srevinsaju/togomak/v1/..."
 }
 
-stage &quot;build&quot; {
+stage "build" {
   depends_on = [stage.fmt, stage.vet]
-  script     = &quot;go build -v -o ./cmd/togomak/togomak github.com/srevinsaju/togomak/v1/cmd/togomak&quot;
+  script     = "go build -v -o ./cmd/togomak/togomak github.com/srevinsaju/togomak/v1/cmd/togomak"
 }
 
-stage &quot;install&quot; {
+stage "install" {
   depends_on = [stage.build]
-  script     = &quot;go install github.com/srevinsaju/togomak/v1/cmd/togomak&quot;
+  script     = "go install github.com/srevinsaju/togomak/v1/cmd/togomak"
 }
 
-stage &quot;docs_serve&quot; {
+stage "docs_serve" {
   daemon {
     enabled = true
   }
   if     = false
-  script = &quot;cd docs &amp;&amp; mdbook serve&quot;
+  script = "cd docs &amp;&amp; mdbook serve"
 }
 </code></pre>
-<p>In the above togomak configuration file, the <code>mdbook</code> generator, which 
-is used for writing this documentation is allowed to run as a daemon 
-process. Similarly, it is possible to have multiple processes running 
+<p>In the above togomak configuration file, the <code>mdbook</code> generator, which
+is used for writing this documentation is allowed to run as a daemon
+process. Similarly, it is possible to have multiple processes running
 as well.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="container-support"><a class="header" href="#container-support">Container Support</a></h1>
 <blockquote>
 <p><code>podman</code> execution engine is not supported. <code>togomak</code> uses the <code>docker/client</code> SDK
-to directly interact with the running docker daemon. </p>
+to directly interact with the running docker daemon.</p>
 </blockquote>
 <p>Togomak has integrated docker container support, a sample usage would be as follows:</p>
 <pre><code class="language-hcl">togomak {
   version = 2
 }
 
-stage &quot;example&quot; {
+stage "example" {
   container {
-    image = &quot;ubuntu&quot;
+    image = "ubuntu"
     volume {
-      source      = &quot;${cwd}/diary&quot;
-      destination = &quot;/newdiary&quot;
+      source      = "${cwd}/diary"
+      destination = "/newdiary"
     }
   }
   script = &lt;&lt;-EOT
@@ -388,7 +395,7 @@ stage &quot;example&quot; {
   ls -al
   for i in $(seq 1 10); do
     sleep 1
-    echo &quot;Loading $i...&quot;
+    echo "Loading $i..."
   done
   cat rei.diary.txt
   ls -al /newdiary
@@ -396,10 +403,10 @@ stage &quot;example&quot; {
 }
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="outputs"><a class="header" href="#outputs">Outputs</a></h1>
-<p>Sometimes, you would want to generate some outputs 
-from your build. Sometimes, you might want to store 
-the version you parsed from a file, or a list of files 
-that you would want to share with another independent 
+<p>Sometimes, you would want to generate some outputs
+from your build. Sometimes, you might want to store
+the version you parsed from a file, or a list of files
+that you would want to share with another independent
 stage.</p>
 <p>To do so, you can write as environment variables to <code>$TOGOMAK_OUTPUTS</code></p>
 <p>for example:</p>
@@ -407,21 +414,21 @@ stage.</p>
   version = 2
 }
 
-stage &quot;agent&quot; {
+stage "agent" {
   script = &lt;&lt;-EOT
   set -u
-  echo &quot;AGENT=Ryoji Kaji&quot; &gt;&gt; $TOGOMAK_OUTPUTS
+  echo "AGENT=Ryoji Kaji" &gt;&gt; $TOGOMAK_OUTPUTS
   EOT
 }
 
-stage &quot;seele&quot; {
+stage "seele" {
   depends_on = [stage.agent]
-  name       = &quot;seele&quot;
-  script     = &quot;echo The agent from Seele reporting! ${output.AGENT}&quot;
+  name       = "seele"
+  script     = "echo The agent from Seele reporting! ${output.AGENT}"
 }
 </code></pre>
-<p>As a limitation, you can only share data within 
-the same pipeline scope. i.e, data is not 
+<p>As a limitation, you can only share data within
+the same pipeline scope. i.e, data is not
 implicitly shared between pipelines run using
 an remote source, or external file, in the case
 of using <code>macros</code> with external files. However,
@@ -436,18 +443,18 @@ you can still pass them using <code>macro</code>'s parameters.</p>
 <li><code>unattended</code> (<code>--unattended</code>)</li>
 <li>Normal execution</li>
 </ul>
-<p>In <code>unattended</code> mode, all prompts and interactive options will be disabled. 
+<p>In <code>unattended</code> mode, all prompts and interactive options will be disabled.
 <code>ci</code> mode is same as unattended mode, but however, a separate variable will
-be defined in the pipeline <code>togomak.ci</code>, which can be used later to run 
-specific stages on CI, and only run certain stages on the user side. </p>
-<p>The <code>ci</code> mode is implicit on popular CICD providers like Jenkins, GitHub or 
+be defined in the pipeline <code>togomak.ci</code>, which can be used later to run
+specific stages on CI, and only run certain stages on the user side.</p>
+<p>The <code>ci</code> mode is implicit on popular CICD providers like Jenkins, GitHub or
 GitLab CI, etc. It requires one of the environment variables: <code>CI</code>, <code>TOGOMAK_CI</code>
 or the CLI flag <code>--ci</code> for it to be enabled.</p>
-<p>In the normal execution mode, prompts will pass through the pipeline execution, 
+<p>In the normal execution mode, prompts will pass through the pipeline execution,
 and it will wait indefinitely until the user enters the value.
 Similarly, Interrupts will be enabled on the normal execution mode.</p>
-<p>On the first <code>Ctrl + C</code> recevied from the user in the normal execution mode, 
-it will send <code>SIGTERM</code> to child stages, or will stop the docker container, in the 
+<p>On the first <code>Ctrl + C</code> recevied from the user in the normal execution mode,
+it will send <code>SIGTERM</code> to child stages, or will stop the docker container, in the
 case of docker container engines. The deadline in most cases would be 10 seconds.</p>
 <p>If a second <code>Ctrl + C</code> is received within the above deadline time, the child processes
 will be sent <code>SIGKILL</code> signal. In the case of docker containers, no action will be
@@ -455,11 +462,11 @@ taken. This means that, it is possible that containers might be left dangling.
 Similarly, it is possible to have zombie processes.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="usage"><a class="header" href="#usage">Usage</a></h1>
 <h2 id="basic-usage"><a class="header" href="#basic-usage">Basic Usage</a></h2>
-<p>By default, <code>togomak</code> runs all stages 
-which evaluates their condition <code>stage.xxx.if</code> to 
+<p>By default, <code>togomak</code> runs all stages
+which evaluates their condition <code>stage.xxx.if</code> to
 <code>true</code>. By default, all stages evaluate their
-condition to true, unless explicitly 
-specified. </p>
+condition to true, unless explicitly
+specified.</p>
 <p>To simply run all stages which meet the criteria,
 just do</p>
 <pre><code class="language-bash">togomak 
@@ -469,54 +476,54 @@ just do</p>
 directory, you could:</p>
 <pre><code class="language-bash">togomak -C path/to/different/dir
 </code></pre>
-<p>Similary, you can also explicitly specify 
-the path to <code>togomak.hcl</code> using the <code>-f</code> or 
+<p>Similary, you can also explicitly specify
+the path to <code>togomak.hcl</code> using the <code>-f</code> or
 the <code>--file</code> parameter.</p>
 <h2 id="running-specific-stages"><a class="header" href="#running-specific-stages">Running specific stages</a></h2>
-<p>If you would like to run only specific 
+<p>If you would like to run only specific
 stages, instead of the entire pipeline,
 you could do something like this:</p>
 <pre><code class="language-bash">togomak stage1 stage2 
 </code></pre>
-<p>This would run both <code>stage1</code>, <code>stage2</code> and 
+<p>This would run both <code>stage1</code>, <code>stage2</code> and
 all the dependencies of <code>stage1</code> and <code>stage2</code>.
 That means, if there were a stage <code>stage3</code>
 which depends on <code>stage1</code>, then <code>stage3</code> would
 also be included in the same pipeline.</p>
-<p>Now, you can also blacklist and whitelist 
+<p>Now, you can also blacklist and whitelist
 certain stages. Let us take the specific
 example of <code>togomak.hcl</code> which is used
-to build togomak itself, at the root of 
+to build togomak itself, at the root of
 this repository:</p>
 <pre><code class="language-hcl">togomak {
   version = 2
 }
 
 
-stage &quot;fmt&quot; {
-  script = &quot;go fmt github.com/srevinsaju/togomak/v1/...&quot;
+stage "fmt" {
+  script = "go fmt github.com/srevinsaju/togomak/v1/..."
 }
 
-stage &quot;vet&quot; {
-  script = &quot;go vet github.com/srevinsaju/togomak/v1/...&quot;
+stage "vet" {
+  script = "go vet github.com/srevinsaju/togomak/v1/..."
 }
 
-stage &quot;build&quot; {
+stage "build" {
   depends_on = [stage.fmt, stage.vet]
-  script     = &quot;go build -v -o ./cmd/togomak/togomak github.com/srevinsaju/togomak/v1/cmd/togomak&quot;
+  script     = "go build -v -o ./cmd/togomak/togomak github.com/srevinsaju/togomak/v1/cmd/togomak"
 }
 
-stage &quot;install&quot; {
+stage "install" {
   depends_on = [stage.build]
-  script     = &quot;go install github.com/srevinsaju/togomak/v1/cmd/togomak&quot;
+  script     = "go install github.com/srevinsaju/togomak/v1/cmd/togomak"
 }
 
-stage &quot;docs_serve&quot; {
+stage "docs_serve" {
   daemon {
     enabled = true
   }
   if     = false
-  script = &quot;cd docs &amp;&amp; mdbook serve&quot;
+  script = "cd docs &amp;&amp; mdbook serve"
 }
 </code></pre>
 <p>In the above example, doing <code>togomak build</code>
@@ -537,10 +544,10 @@ criteria.</p>
 <h3 id="running-a-specific-stage-alone"><a class="header" href="#running-a-specific-stage-alone">Running a specific stage alone</a></h3>
 <p>If you strictly want to run a single stage,
 and do not want to include its dependencies,
-or if you do not want to manually blacklist 
-all its dependencies, <code>togomak</code> has a 
+or if you do not want to manually blacklist
+all its dependencies, <code>togomak</code> has a
 special stage called the <code>root</code> stage,
-which will run regardless of the whitelist or the 
+which will run regardless of the whitelist or the
 blacklist.</p>
 <p>So, if you would like to run only <code>stage.build</code>
 and not <code>stage.install</code>, you could do:</p>
@@ -561,7 +568,7 @@ entry will be considered and the rest will be ignored.</p>
 you could do so by using the <code>+</code> operator.</p>
 <pre><code class="language-bash">togomak macro_name.build
 </code></pre>
-<p>or </p>
+<p>or</p>
 <pre><code class="language-bash">togomak macro_name.root +macro_name.build
 </code></pre>
 <p>and so on.</p>
@@ -576,7 +583,7 @@ stage name.</p>
 </code></pre>
 <p>This would run the <code>build</code> stage in the background,
 and will not wait for the build stage to complete
-before moving on to the next stage. However, 
+before moving on to the next stage. However,
 the <code>build</code> stage will be terminated once the last
 dependent of the <code>build</code> stage completes.</p>
 <p>Under the hood, the <code>build</code> stage will receive
@@ -584,17 +591,17 @@ a <code>SIGTERM</code> signal, and will be given a grace period
 of 10 seconds to complete. If the stage does not
 terminate within the grace period, it will be
 forcefully killed (<code>SIGKILL</code>).</p>
-<p>The above feature is particularly useful for 
-running long running stages, such as a docker 
+<p>The above feature is particularly useful for
+running long running stages, such as a docker
 service for performing integration tests.</p>
 <p>For extensive information about the daemonizing
-feature, refer to the <a href="cli/../features/daemonizing.html">daemonizing</a> 
+feature, refer to the <a href="cli/../features/daemonizing.html">daemonizing</a>
 section.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="configuration"><a class="header" href="#configuration">Configuration</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="togomak-1"><a class="header" href="#togomak-1">Togomak</a></h1>
-<p>The <code>togomak</code> block is a mandatory 
+<p>The <code>togomak</code> block is a mandatory
 block for the file to be recognized as a valid
-<code>togomak</code> pipeline. </p>
+<code>togomak</code> pipeline.</p>
 <pre><code class="language-hcl"># togomak.hcl
 
 togomak {
@@ -602,9 +609,9 @@ togomak {
     version = 2
 }
 </code></pre>
-<p>The above block, with <code>version</code> parameter 
+<p>The above block, with <code>version</code> parameter
 is required for any pipeline to be considered
-&quot;runnable&quot;.</p>
+"runnable".</p>
 <h2 id="arguments-reference"><a class="header" href="#arguments-reference">Arguments Reference</a></h2>
 <ul>
 <li><a href="configuration/togomak.html#version"><code>version</code></a> - The version of the Togomak pipeline file</li>
@@ -619,17 +626,17 @@ is required for any pipeline to be considered
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="stage"><a class="header" href="#stage">Stage</a></h1>
 <p>A <code>stage</code> is considered as an atomic runnable
-unit. Multiple stages may be executed 
-concurrently. </p>
-<p>A stage can accept a script, a command and a set 
-of arguments, or a macro. </p>
+unit. Multiple stages may be executed
+concurrently.</p>
+<p>A stage can accept a script, a command and a set
+of arguments, or a macro.</p>
 <h3 id="stage-with-script"><a class="header" href="#stage-with-script">Stage with Script</a></h3>
 <pre><code class="language-hcl"><span class="boring">togomak {
 </span><span class="boring">  version = 2
 </span><span class="boring">}
 </span><span class="boring">
-</span>stage &quot;script&quot; {
-  script = &quot;echo 'Hello World'&quot;
+</span>stage "script" {
+  script = "echo 'Hello World'"
 }
 </code></pre>
 <h3 id="stage-with-command-and-arguments"><a class="header" href="#stage-with-command-and-arguments">Stage with Command and Arguments</a></h3>
@@ -637,8 +644,8 @@ of arguments, or a macro. </p>
 </span><span class="boring">  version = 2
 </span><span class="boring">}
 </span><span class="boring">
-</span>stage &quot;command&quot; {
-  args = [&quot;echo&quot;, &quot;Hello World&quot;]
+</span>stage "command" {
+  args = ["echo", "Hello World"]
 }
 </code></pre>
 <h3 id="stage-with-macro"><a class="header" href="#stage-with-macro">Stage with Macro</a></h3>
@@ -646,13 +653,13 @@ of arguments, or a macro. </p>
 </span><span class="boring">  version = 2
 </span><span class="boring">}
 </span><span class="boring">
-</span>macro &quot;echo&quot; {
-  stage &quot;echo&quot; {
-    args = [&quot;echo&quot;, &quot;Hello World&quot;]
+</span>macro "echo" {
+  stage "echo" {
+    args = ["echo", "Hello World"]
   }
 }
 
-stage &quot;macro&quot; {
+stage "macro" {
   use {
     macro = macro.echo     
   }
@@ -663,13 +670,13 @@ stage &quot;macro&quot; {
 </span><span class="boring">  version = 2
 </span><span class="boring">}
 </span><span class="boring">
-</span>stage &quot;build&quot; {
-  script = &quot;echo 'Building'&quot;
+</span>stage "build" {
+  script = "echo 'Building'"
 }
 
-stage &quot;install&quot; {
+stage "install" {
   depends_on = [stage.build]
-  script = &quot;echo 'Installing'&quot;
+  script = "echo 'Installing'"
 }
 </code></pre>
 <h3 id="stage-with-retry"><a class="header" href="#stage-with-retry">Stage with Retry</a></h3>
@@ -677,7 +684,7 @@ stage &quot;install&quot; {
 </span><span class="boring">  version = 2
 </span><span class="boring">}
 </span><span class="boring">
-</span>stage &quot;build&quot; {
+</span>stage "build" {
   script = &lt;&lt;-EOT
   echo this script will fail
   exit 1
@@ -696,12 +703,12 @@ stage &quot;install&quot; {
   version = 2
 }
 
-stage &quot;example&quot; {
+stage "example" {
   container {
-    image = &quot;ubuntu&quot;
+    image = "ubuntu"
     volume {
-      source      = &quot;${cwd}/diary&quot;
-      destination = &quot;/newdiary&quot;
+      source      = "${cwd}/diary"
+      destination = "/newdiary"
     }
   }
   script = &lt;&lt;-EOT
@@ -709,7 +716,7 @@ stage &quot;example&quot; {
   ls -al
   for i in $(seq 1 10); do
     sleep 1
-    echo &quot;Loading $i...&quot;
+    echo "Loading $i..."
   done
   cat rei.diary.txt
   ls -al /newdiary
@@ -771,7 +778,7 @@ The <code>container</code> block supports:</p>
 <hr />
 <p><a id="daemon"></a></p>
 <blockquote>
-<p>Daemonization is still wip, see <a href="configuration/../features/daemonizing.html">daemonization</a> for more information on availability </p>
+<p>Daemonization is still wip, see <a href="configuration/../features/daemonizing.html">daemonization</a> for more information on availability</p>
 </blockquote>
 <p>The <code>daemon</code> block supports:</p>
 <ul>
@@ -785,12 +792,12 @@ The <code>container</code> block supports:</p>
 <li>[<code>stop_when_complete</code>] - Array of stages. <code>togomak</code> waits for all the stages mentioned in the <code>stop_when_complete</code> argument, before sending <code>SIGTERM</code> to the daemon process</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="locals"><a class="header" href="#locals">Locals</a></h1>
-<p>If you plan to use a specific variable several times in your pipeline, you may use 
-a <code>locals {}</code> block. </p>
+<p>If you plan to use a specific variable several times in your pipeline, you may use
+a <code>locals {}</code> block.</p>
 <p>A simple usage may be shown below</p>
 <pre><code class="language-hcl">locals {
     var1 = 1
-    var2 = &quot;hello&quot;
+    var2 = "hello"
     var3 = {
         apple = 2
         orange = 3
@@ -803,84 +810,84 @@ a <code>locals {}</code> block. </p>
 }
 
 locals {
-  nerv_headquarters = &quot;Tokyo-3&quot;
-  pilot_name        = &quot;Shinji&quot;
+  nerv_headquarters = "Tokyo-3"
+  pilot_name        = "Shinji"
 }
 
-stage &quot;eva01_synchronization&quot; {
-  name   = &quot;Eva-01 Synchronization Tests&quot;
-  script = &quot;echo ${local.pilot_name} is now running synchronization tests at ${local.nerv_headquarters}&quot;
+stage "eva01_synchronization" {
+  name   = "Eva-01 Synchronization Tests"
+  script = "echo ${local.pilot_name} is now running synchronization tests at ${local.nerv_headquarters}"
 }
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><p><img src="https://img.shields.io/badge/since-v1.0.0-green" alt="since v1.0.0" />
 <img src="https://img.shields.io/badge/config-%201-green" alt="config v1" /></p>
 <h1 id="data"><a class="header" href="#data">Data</a></h1>
-<p>The <code>data</code> block allows fetching static data from different sources known 
+<p>The <code>data</code> block allows fetching static data from different sources known
 as <code>data_providers</code>. Common providers include examples like environment variables,
-file sources, or an external secrets manager, like Hashicorp Vault or Google 
-Secret Manager. </p>
+file sources, or an external secrets manager, like Hashicorp Vault or Google
+Secret Manager.</p>
 <p>A basic <code>data</code> block looks like this:</p>
-<pre><code class="language-hcl">data &quot;provider_name&quot; &quot;id&quot; {
+<pre><code class="language-hcl">data "provider_name" "id" {
     ...
-    default = &quot;???&quot;
+    default = "???"
 }
 </code></pre>
 <p>Here, the data block uses the provider, <code>provider_name</code> to retrieve information.
 The retrieved value will be stored, and can be accessed <code>data.provider_name.id.value</code>.</p>
 <h2 id="data-providers"><a class="header" href="#data-providers">Data Providers</a></h2>
 <h3 id="built-in-providers"><a class="header" href="#built-in-providers">Built-in providers</a></h3>
-<p>Parameters for the <code>data</code> block depends on the type of the provider. 
+<p>Parameters for the <code>data</code> block depends on the type of the provider.
 Supported buit-in providers are:</p>
 <ul>
-<li><a href="configuration/./data_env.html"><code>data.env</code></a>: Environment Variable Provider </li>
-<li><a href="configuration/./data_prompt.html"><code>data.prompt</code></a>: Interactive user CLI prompt </li>
+<li><a href="configuration/./data_env.html"><code>data.env</code></a>: Environment Variable Provider</li>
+<li><a href="configuration/./data_prompt.html"><code>data.prompt</code></a>: Interactive user CLI prompt</li>
 <li><a href="configuration/./data_file.html"><code>data.file</code></a>: Read data from a file</li>
 </ul>
 <p>Refer to the documentation by the provider type, for more information
 on the supported attributes.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dataenv"><a class="header" href="#dataenv"><code>data.env</code></a></h1>
 <p>The <code>env</code> data provider fetches the variable from the environment
-before the execution of the pipeline happens. If the specified 
+before the execution of the pipeline happens. If the specified
 environment variable is undefined, falls back to the <code>default</code>
-value specified in the <code>data.env</code> block, else returns an empty 
+value specified in the <code>data.env</code> block, else returns an empty
 string.</p>
 <h2 id="reading-an-environment-variable"><a class="header" href="#reading-an-environment-variable">Reading an environment variable</a></h2>
-<pre><code class="language-hcl">data &quot;env&quot; &quot;user&quot; {
-  key = &quot;USER&quot;
-  default = &quot;me&quot;
+<pre><code class="language-hcl">data "env" "user" {
+  key = "USER"
+  default = "me"
 }
 </code></pre>
 <h2 id="arguments-reference-2"><a class="header" href="#arguments-reference-2">Arguments Reference</a></h2>
 <ul>
 <li><a href="configuration/data_env.html#key"><code>key</code></a>: The environment variable key which needs to be fetched from <code>os.environ</code></li>
-<li><a href="configuration/data_env.html#default"><code>default</code></a>: Fallback definition, which will be returned if <code>os.environ[key]</code> is undefined. </li>
+<li><a href="configuration/data_env.html#default"><code>default</code></a>: Fallback definition, which will be returned if <code>os.environ[key]</code> is undefined.</li>
 </ul>
 <h2 id="attributes-reference-1"><a class="header" href="#attributes-reference-1">Attributes Reference</a></h2>
 <ul>
 <li>[<code>value</code>]: The value from the environment variable defined in <code>key</code></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dataprompt"><a class="header" href="#dataprompt"><code>data.prompt</code></a></h1>
-<p>If you interactively need to ask user for an input, you may use 
-the <code>prompt</code> data source. 
-The <code>prompt</code> data source interactively asks for the user 
+<p>If you interactively need to ask user for an input, you may use
+the <code>prompt</code> data source.
+The <code>prompt</code> data source interactively asks for the user
 on the Command line interface, if the TTY supports it, or
 asks the user on the Web UI (not implemented yet).</p>
-<p>It is very likely that, depending on the execution engine, 
-<code>data.prompt</code> resources are placed at the beginning of the 
-topological sorted layer to prevent interference from other 
-running stages (in the case of CLIs), or in the case of 
-Web UIs to collect all data in the beginning of pipeline 
-execution, so that it can happen asynchronously. </p>
+<p>It is very likely that, depending on the execution engine,
+<code>data.prompt</code> resources are placed at the beginning of the
+topological sorted layer to prevent interference from other
+running stages (in the case of CLIs), or in the case of
+Web UIs to collect all data in the beginning of pipeline
+execution, so that it can happen asynchronously.</p>
 <h2 id="prompting-a-user-for-response"><a class="header" href="#prompting-a-user-for-response">Prompting a user for response</a></h2>
-<pre><code class="language-hcl">data &quot;prompt&quot; &quot;name&quot; {
-    prompt = &quot;what is your name?&quot;
-    default = &quot;John Doe&quot;
+<pre><code class="language-hcl">data "prompt" "name" {
+    prompt = "what is your name?"
+    default = "John Doe"
 }
 </code></pre>
 <h2 id="argument-reference"><a class="header" href="#argument-reference">Argument Reference</a></h2>
 <ul>
 <li><a href="configuration/data_prompt.html#prompt"><code>prompt</code></a> - The data that the user will be prompted for (optional)</li>
-<li><a href="configuration/data_prompt.html#default"><code>default</code></a> - Fallback data which will be returned if the user did not enter anything, or if the 
+<li><a href="configuration/data_prompt.html#default"><code>default</code></a> - Fallback data which will be returned if the user did not enter anything, or if the
 TTY is absent, or if any other UI provider is missing. (optional)</li>
 </ul>
 <h2 id="attributes-reference-2"><a class="header" href="#attributes-reference-2">Attributes Reference</a></h2>
@@ -891,8 +898,8 @@ TTY is absent, or if any other UI provider is missing. (optional)</li>
 <p>The <code>git</code> data provider clones a git repository
 to a specific directory</p>
 <h3 id="opening-the-existing-repository"><a class="header" href="#opening-the-existing-repository">Opening the existing repository</a></h3>
-<pre><code class="language-hcl">data &quot;git&quot; &quot;this&quot; {
-  url = &quot;.&quot;
+<pre><code class="language-hcl">data "git" "this" {
+  url = "."
 }
 </code></pre>
 <h3 id="cloning-a-new-repository"><a class="header" href="#cloning-a-new-repository">Cloning a new repository</a></h3>
@@ -900,16 +907,16 @@ to a specific directory</p>
   version = 2
 }
 
-data &quot;git&quot; &quot;repo&quot; {
-  url   = &quot;https://github.com/srevinsaju/togomak&quot;
-  branch = &quot;v1&quot;
-  files = [&quot;togomak.hcl&quot;]
+data "git" "repo" {
+  url   = "https://github.com/srevinsaju/togomak"
+  branch = "v1"
+  files = ["togomak.hcl"]
 }
 
-stage &quot;example&quot; {
-  name   = &quot;example&quot;
+stage "example" {
+  name   = "example"
   script = &lt;&lt;-EOT
-  echo '${data.git.repo.files[&quot;togomak.hcl&quot;]}'
+  echo '${data.git.repo.files["togomak.hcl"]}'
   EOT
 
 }
@@ -919,17 +926,17 @@ stage &quot;example&quot; {
   version = 2
 }
 
-data &quot;git&quot; &quot;eva01_source&quot; {
-  url   = &quot;https://github.com/srevinsaju/togomak&quot;
-  files = [&quot;togomak.hcl&quot;]
+data "git" "eva01_source" {
+  url   = "https://github.com/srevinsaju/togomak"
+  files = ["togomak.hcl"]
 }
 
-macro &quot;gendo_brain&quot; {
+macro "gendo_brain" {
   files = data.git.eva01_source.files
 }
 
-stage &quot;build_eva01&quot; {
-  name = &quot;Building eva unit&quot;
+stage "build_eva01" {
+  name = "Building eva unit"
   use {
     macro = macro.gendo_brain
   }
@@ -942,7 +949,7 @@ stage &quot;build_eva01&quot; {
 <li><a href="configuration/data_git.html#tag"><code>tag</code></a> - The tag to checkout. <code>tag</code> takes precedence over <code>branch</code>.</li>
 <li><a href="configuration/data_git.html#ref"><code>ref</code></a> - The reference to checkout, in the format <code>refs/tags/v3</code> for example. <code>ref</code> takes precedence over <code>tag</code> and <code>branch</code>.</li>
 <li><a href="configuration/data_git.html#branch"><code>branch</code></a> - The branch to checkout. <code>ref</code> and <code>tag</code> takes precedence over <code>branch</code>.</li>
-<li><a href="configuration/data_git.html#destination"><code>destination</code></a> - The destination directory to clone the repository to, defaults to <code>&quot;memory&quot;</code>, which clones into a temporary directory managed by <code>togomak</code></li>
+<li><a href="configuration/data_git.html#destination"><code>destination</code></a> - The destination directory to clone the repository to, defaults to <code>"memory"</code>, which clones into a temporary directory managed by <code>togomak</code></li>
 <li><a href="configuration/data_git.html#commit"><code>commit</code></a> - The commit to checkout.</li>
 <li><a href="configuration/data_git.html#depth"><code>depth</code></a> - The depth of the clone.</li>
 <li><a href="configuration/data_git.html#ca_bundle"><code>ca_bundle</code></a> - The path to a CA bundle file or directory, (deprecated, does nothing).</li>
@@ -951,72 +958,72 @@ stage &quot;build_eva01&quot; {
 </ul>
 <h2 id="attributes-reference-3"><a class="header" href="#attributes-reference-3">Attributes Reference</a></h2>
 <ul>
-<li><a href="configuration/data_git.html#last-tag"><code>last_tag</code></a> - The latest tag in the repository, defaults to <code>&quot;&quot;</code></li>
+<li><a href="configuration/data_git.html#last-tag"><code>last_tag</code></a> - The latest tag in the repository, defaults to <code>""</code></li>
 <li><a href="configuration/data_git.html#commits-since-last-tag"><code>commits_since_last_tag</code></a> - The number of commits since the last tag, defaults to <code>0</code></li>
-<li><a href="configuration/data_git.html#sha"><code>sha</code></a> - The SHA of the commit, defaults to <code>&quot;&quot;</code></li>
-<li><a href="configuration/data_git.html#ref"><code>ref</code></a> - The ref of the commit, in the format <code>refs/heads/&lt;branch&gt;</code> or <code>refs/tags/&lt;tag&gt;</code>, defaults to <code>&quot;&quot;</code></li>
+<li><a href="configuration/data_git.html#sha"><code>sha</code></a> - The SHA of the commit, defaults to <code>""</code></li>
+<li><a href="configuration/data_git.html#ref"><code>ref</code></a> - The ref of the commit, in the format <code>refs/heads/&lt;branch&gt;</code> or <code>refs/tags/&lt;tag&gt;</code>, defaults to <code>""</code></li>
 <li><a href="configuration/data_git.html#is-tag"><code>is_tag</code></a> - Whether the ref is a tag, defaults to <code>false</code></li>
 <li><a href="configuration/data_git.html#files"><code>files</code></a> - The files checked out from the repository. Returns a map, with the keys being the file paths and the values being the file contents.</li>
 <li><a href="configuration/data_git.html#branch"><code>branch</code></a> - The branch checked out from the repository. Returns a string.</li>
-<li><a href="configuration/data_git.html#destination"><code>destination</code></a> - The destination where the repository is stored. </li>
+<li><a href="configuration/data_git.html#destination"><code>destination</code></a> - The destination where the repository is stored.</li>
 </ul>
 <hr />
 <p><a id="auth"></a>
 The <code>auth</code> block supports:</p>
 <ul>
 <li><a href="configuration/data_git.html#username"><code>username</code></a> - The username to be used. If password is specified, and if the username is empty, it falls back to <code>oauth2</code></li>
-<li><a href="configuration/data_git.html#password"><code>password</code></a> - The password to be used for connecting to the private repository. </li>
+<li><a href="configuration/data_git.html#password"><code>password</code></a> - The password to be used for connecting to the private repository.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="macro"><a class="header" href="#macro">Macro</a></h1>
-<p>Macros are reusable stages. If you would like to reuse the same stage multiple times 
-in the same pipeline, with optionally different parameters, <code>macros</code> are the right 
+<p>Macros are reusable stages. If you would like to reuse the same stage multiple times
+in the same pipeline, with optionally different parameters, <code>macros</code> are the right
 thing for you.</p>
 <p>You may use <code>macro</code> in three ways:</p>
 <ul>
 <li><strong>Inline stages</strong> (<code>stage</code> block): The stage is defined in the macro block, and re-used multiple times</li>
 <li><strong>External files</strong> (<code>source</code> argument): Path to an external single pipeline located on the filesystem, which will
-be passed to an internal togomak child process, which will independently run the single file as a separate stage. 
+be passed to an internal togomak child process, which will independently run the single file as a separate stage.
 See <a href="configuration/../features/macros.html">Reusable Stages section</a> for more information.</li>
-<li><strong>Pipeline content</strong> (<code>files</code> argument): A map containing files inline, which will be used by togomak, to create 
-another child process which will run the contents of the file, as an independant stage. </li>
+<li><strong>Pipeline content</strong> (<code>files</code> argument): A map containing files inline, which will be used by togomak, to create
+another child process which will run the contents of the file, as an independant stage.</li>
 </ul>
-<p>Before you decide to use <code>macro</code>, you might be interested in seeeing 
+<p>Before you decide to use <code>macro</code>, you might be interested in seeeing
 <a href="configuration/./import.html"><code>import</code> block</a>. See also <a href="configuration/./import.html#whats-the-difference-between-macro-and-import"><em>What's the difference between macro and import?</em></a></p>
 <h3 id="example-usage-inline-stages"><a class="header" href="#example-usage-inline-stages">Example usage (Inline stages)</a></h3>
 <pre><code class="language-tf">togomak {
   version = 2
 }
 
-macro &quot;explode&quot; {
-  stage &quot;explode&quot; {
+macro "explode" {
+  stage "explode" {
     script = &lt;&lt;-EOT
         for i in $(seq 1 10); do
           sleep 0.1
-          echo &quot;${param.eva}: Loading $i...&quot;
+          echo "${param.eva}: Loading $i..."
         done
 
-        echo &quot;${param.eva}: entry plug connected! pilot ${param.pilot} synchronized! 🤖&quot;
+        echo "${param.eva}: entry plug connected! pilot ${param.pilot} synchronized! 🤖"
         EOT
   }
 }
 
 
-stage &quot;entry_plug_eva01&quot; {
+stage "entry_plug_eva01" {
   use {
     macro = macro.explode
     parameters = {
-      pilot = &quot;Shinji Ikari 🙅‍♂️&quot;
-      eva   = &quot;01&quot;
+      pilot = "Shinji Ikari 🙅‍♂️"
+      eva   = "01"
     }
   }
 }
 
-stage &quot;entry_plug_eva02&quot; {
+stage "entry_plug_eva02" {
   use {
     macro = macro.explode
     parameters = {
-      pilot = &quot;Asuka Langley Soryu 🙅‍♀️&quot;
-      eva   = &quot;02&quot;
+      pilot = "Asuka Langley Soryu 🙅‍♀️"
+      eva   = "02"
     }
   }
 }
@@ -1037,16 +1044,16 @@ The <code>stage</code> block supports:</p>
 </ul>
 <hr />
 <p><a href="configuration/files"></a>
-The <code>files</code> is a map, which accepts data in the format of key-value pairs, where the &quot;key&quot; is the path to the file 
-and the &quot;value&quot; is the content of the file. </p>
+The <code>files</code> is a map, which accepts data in the format of key-value pairs, where the "key" is the path to the file
+and the "value" is the content of the file.</p>
 <p>For example,</p>
 <pre><code class="language-hcl">files = {
-    &quot;togomak.hcl&quot; = &lt;&lt;-EOT
+    "togomak.hcl" = &lt;&lt;-EOT
     togomak {
         version = 2
     }
-    stage &quot;hello&quot; {
-        script = &quot;echo hello world&quot;
+    stage "hello" {
+        script = "echo hello world"
     }
     EOT,
     ...
@@ -1056,38 +1063,38 @@ and the &quot;value&quot; is the content of the file. </p>
 <img src="https://img.shields.io/badge/config-%201-green" alt="config v1" /></p>
 <h1 id="import"><a class="header" href="#import">Import</a></h1>
 <p>The <code>import</code> block allows you to merge multiple pipelines together,
-into a flatter pipeline. <code>import</code> blocks are evaluated before the 
-dependency tree is generated, and hence, variables or expressions 
-are not permitted. If you need to statisfy a more dynamic evaluation, 
-use <a href="configuration/./macros.html"><code>macro</code></a> instead. </p>
+into a flatter pipeline. <code>import</code> blocks are evaluated before the
+dependency tree is generated, and hence, variables or expressions
+are not permitted. If you need to statisfy a more dynamic evaluation,
+use <a href="configuration/./macros.html"><code>macro</code></a> instead.</p>
 <p><code>import</code> block accepts a single parameter without any id. The block
-specifies the source, which should be a constant value, and could 
-be a local file, </p>
+specifies the source, which should be a constant value, and could
+be a local file,</p>
 <h2 id="example-usage"><a class="header" href="#example-usage">Example usage</a></h2>
 <pre><code class="language-hcl">togomak {
   version = 2
 }
 
 import {
-  source = &quot;./module&quot;
+  source = "./module"
 }
 
-stage &quot;main&quot; {
-  script = &quot;echo script from the main file&quot;
+stage "main" {
+  script = "echo script from the main file"
 }
 
 import {
-  source = &quot;git::https://github.com/srevinsaju/togomak-first-module&quot;
+  source = "git::https://github.com/srevinsaju/togomak-first-module"
 }
 </code></pre>
 <h2 id="argument-reference-2"><a class="header" href="#argument-reference-2">Argument reference</a></h2>
 <p><a id="source"></a></p>
 <ul>
-<li><a href="configuration/import.html#source"><code>source</code></a> - URL to fetch the pipeline from, could be local file path, relative file path, absolute file path, a Git URL, a HTTP URL, GCS bucket, AWS s3 bucket or mercurial. </li>
+<li><a href="configuration/import.html#source"><code>source</code></a> - URL to fetch the pipeline from, could be local file path, relative file path, absolute file path, a Git URL, a HTTP URL, GCS bucket, AWS s3 bucket or mercurial.</li>
 </ul>
-<p>The URL for <code>source</code> may be link to the required pipeline inclusive of the 
-protocol, or you may omit in certain cases, where detectors would 
-be run on top of it. </p>
+<p>The URL for <code>source</code> may be link to the required pipeline inclusive of the
+protocol, or you may omit in certain cases, where detectors would
+be run on top of it.</p>
 <p>For example:</p>
 <ul>
 <li><code>github.com/srevinsaju/togomak</code> would automatically evaluate to a SSH URL</li>
@@ -1096,13 +1103,13 @@ be run on top of it. </p>
 </ul>
 <p>Additionally, you may add query strings like <code>?ref=abcdefg</code> to checkout a specific commit of the repository. Check out the documentation of the underlying library, <code>go-getter</code> which powers terraform modules here: <a href="https://github.com/hashicorp/go-getter">hashicorp/go-getter</a></p>
 <h2 id="whats-the-difference-between-macro-and-import"><a class="header" href="#whats-the-difference-between-macro-and-import">What's the difference between <code>macro</code> and <code>import</code>?</a></h2>
-<p>Great question, the following diagram may help you filter out the 
-differences between them. </p>
+<p>Great question, the following diagram may help you filter out the
+differences between them.</p>
 <p><img src="configuration/./img/macros.png" alt="macro execution" /></p>
 <p><img src="configuration/./img/imports.png" alt="import execution" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="plugins"><a class="header" href="#plugins">Plugins</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="contributing"><a class="header" href="#contributing">Contributing</a></h1>
-<p>Contributions are welcome, and encouraged. 
+<p>Contributions are welcome, and encouraged.
 All contributions are licensed under the <a href="https://github.com/srevinsaju/togomak/blob/v1/LICENSE">MPL License v2.0</a></p>
 <h2 id="table-of-contents"><a class="header" href="#table-of-contents">Table of Contents</a></h2>
 <ul>
@@ -1126,8 +1133,8 @@ All contributions are licensed under the <a href="https://github.com/srevinsaju/
 <li>Open a pull request against the main repository's <code>v1</code> branch.</li>
 </ul>
 <h2 id="commit-guidelines"><a class="header" href="#commit-guidelines">Commit Guidelines</a></h2>
-<p>We follow the Conventional Commit standard for our commit messages. 
-This standard helps us maintain a clean and informative commit history. 
+<p>We follow the Conventional Commit standard for our commit messages.
+This standard helps us maintain a clean and informative commit history.
 Each commit message should have the following format:</p>
 <pre><code>&lt;type&gt;: &lt;description&gt;
 

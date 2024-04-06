@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -10,7 +10,7 @@
         
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="../favicon.svg">
         <link rel="shortcut icon" href="../favicon.png">
@@ -31,7 +31,7 @@
         <!-- Custom theme stylesheets -->
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
@@ -61,31 +61,38 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
+            var body = document.querySelector('body');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../features/introduction.html"><strong aria-hidden="true">2.</strong> Features</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../features/concurrency.html"><strong aria-hidden="true">2.1.</strong> Concurrency</a></li><li class="chapter-item expanded "><a href="../features/dependency.html"><strong aria-hidden="true">2.2.</strong> Dependency Resolution</a></li><li class="chapter-item expanded "><a href="../features/interpolation.html"><strong aria-hidden="true">2.3.</strong> Interpolation</a></li><li class="chapter-item expanded "><a href="../features/macros.html"><strong aria-hidden="true">2.4.</strong> Reusable Stages</a></li><li class="chapter-item expanded "><a href="../features/daemonizing.html"><strong aria-hidden="true">2.5.</strong> Daemonizing</a></li><li class="chapter-item expanded "><a href="../features/docker.html"><strong aria-hidden="true">2.6.</strong> Container Support</a></li><li class="chapter-item expanded "><a href="../features/outputs.html"><strong aria-hidden="true">2.7.</strong> Outputs</a></li></ol></li><li class="chapter-item expanded "><a href="../cli/introduction.html"><strong aria-hidden="true">3.</strong> Command Line Interface</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cli/usage.html"><strong aria-hidden="true">3.1.</strong> Usage</a></li></ol></li><li class="chapter-item expanded "><a href="../configuration/introduction.html"><strong aria-hidden="true">4.</strong> Configuration</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../configuration/togomak.html"><strong aria-hidden="true">4.1.</strong> Togomak</a></li><li class="chapter-item expanded "><a href="../configuration/stage.html"><strong aria-hidden="true">4.2.</strong> Stage</a></li><li class="chapter-item expanded "><a href="../configuration/locals.html"><strong aria-hidden="true">4.3.</strong> Locals</a></li><li class="chapter-item expanded "><a href="../configuration/data.html"><strong aria-hidden="true">4.4.</strong> Data</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../configuration/data_env.html"><strong aria-hidden="true">4.4.1.</strong> data.env</a></li><li class="chapter-item expanded "><a href="../configuration/data_prompt.html"><strong aria-hidden="true">4.4.2.</strong> data.prompt</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.4.3.</strong> data.file</div></li><li class="chapter-item expanded "><a href="../configuration/data_git.html" class="active"><strong aria-hidden="true">4.4.4.</strong> data.git</a></li></ol></li><li class="chapter-item expanded "><a href="../configuration/macro.html"><strong aria-hidden="true">4.5.</strong> Macro</a></li><li class="chapter-item expanded "><a href="../configuration/import.html"><strong aria-hidden="true">4.6.</strong> Import</a></li></ol></li><li class="chapter-item expanded "><a href="../contrib/plugins/introduction.html"><strong aria-hidden="true">5.</strong> Plugins</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">6.</strong> Contributing</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -116,9 +123,9 @@
                                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -170,8 +177,8 @@
 <p>The <code>git</code> data provider clones a git repository
 to a specific directory</p>
 <h3 id="opening-the-existing-repository"><a class="header" href="#opening-the-existing-repository">Opening the existing repository</a></h3>
-<pre><code class="language-hcl">data &quot;git&quot; &quot;this&quot; {
-  url = &quot;.&quot;
+<pre><code class="language-hcl">data "git" "this" {
+  url = "."
 }
 </code></pre>
 <h3 id="cloning-a-new-repository"><a class="header" href="#cloning-a-new-repository">Cloning a new repository</a></h3>
@@ -179,16 +186,16 @@ to a specific directory</p>
   version = 2
 }
 
-data &quot;git&quot; &quot;repo&quot; {
-  url   = &quot;https://github.com/srevinsaju/togomak&quot;
-  branch = &quot;v1&quot;
-  files = [&quot;togomak.hcl&quot;]
+data "git" "repo" {
+  url   = "https://github.com/srevinsaju/togomak"
+  branch = "v1"
+  files = ["togomak.hcl"]
 }
 
-stage &quot;example&quot; {
-  name   = &quot;example&quot;
+stage "example" {
+  name   = "example"
   script = &lt;&lt;-EOT
-  echo '${data.git.repo.files[&quot;togomak.hcl&quot;]}'
+  echo '${data.git.repo.files["togomak.hcl"]}'
   EOT
 
 }
@@ -198,17 +205,17 @@ stage &quot;example&quot; {
   version = 2
 }
 
-data &quot;git&quot; &quot;eva01_source&quot; {
-  url   = &quot;https://github.com/srevinsaju/togomak&quot;
-  files = [&quot;togomak.hcl&quot;]
+data "git" "eva01_source" {
+  url   = "https://github.com/srevinsaju/togomak"
+  files = ["togomak.hcl"]
 }
 
-macro &quot;gendo_brain&quot; {
+macro "gendo_brain" {
   files = data.git.eva01_source.files
 }
 
-stage &quot;build_eva01&quot; {
-  name = &quot;Building eva unit&quot;
+stage "build_eva01" {
+  name = "Building eva unit"
   use {
     macro = macro.gendo_brain
   }
@@ -221,7 +228,7 @@ stage &quot;build_eva01&quot; {
 <li><a href="#tag"><code>tag</code></a> - The tag to checkout. <code>tag</code> takes precedence over <code>branch</code>.</li>
 <li><a href="#ref"><code>ref</code></a> - The reference to checkout, in the format <code>refs/tags/v3</code> for example. <code>ref</code> takes precedence over <code>tag</code> and <code>branch</code>.</li>
 <li><a href="#branch"><code>branch</code></a> - The branch to checkout. <code>ref</code> and <code>tag</code> takes precedence over <code>branch</code>.</li>
-<li><a href="#destination"><code>destination</code></a> - The destination directory to clone the repository to, defaults to <code>&quot;memory&quot;</code>, which clones into a temporary directory managed by <code>togomak</code></li>
+<li><a href="#destination"><code>destination</code></a> - The destination directory to clone the repository to, defaults to <code>"memory"</code>, which clones into a temporary directory managed by <code>togomak</code></li>
 <li><a href="#commit"><code>commit</code></a> - The commit to checkout.</li>
 <li><a href="#depth"><code>depth</code></a> - The depth of the clone.</li>
 <li><a href="#ca_bundle"><code>ca_bundle</code></a> - The path to a CA bundle file or directory, (deprecated, does nothing).</li>
@@ -230,21 +237,21 @@ stage &quot;build_eva01&quot; {
 </ul>
 <h2 id="attributes-reference"><a class="header" href="#attributes-reference">Attributes Reference</a></h2>
 <ul>
-<li><a href="#last-tag"><code>last_tag</code></a> - The latest tag in the repository, defaults to <code>&quot;&quot;</code></li>
+<li><a href="#last-tag"><code>last_tag</code></a> - The latest tag in the repository, defaults to <code>""</code></li>
 <li><a href="#commits-since-last-tag"><code>commits_since_last_tag</code></a> - The number of commits since the last tag, defaults to <code>0</code></li>
-<li><a href="#sha"><code>sha</code></a> - The SHA of the commit, defaults to <code>&quot;&quot;</code></li>
-<li><a href="#ref"><code>ref</code></a> - The ref of the commit, in the format <code>refs/heads/&lt;branch&gt;</code> or <code>refs/tags/&lt;tag&gt;</code>, defaults to <code>&quot;&quot;</code></li>
+<li><a href="#sha"><code>sha</code></a> - The SHA of the commit, defaults to <code>""</code></li>
+<li><a href="#ref"><code>ref</code></a> - The ref of the commit, in the format <code>refs/heads/&lt;branch&gt;</code> or <code>refs/tags/&lt;tag&gt;</code>, defaults to <code>""</code></li>
 <li><a href="#is-tag"><code>is_tag</code></a> - Whether the ref is a tag, defaults to <code>false</code></li>
 <li><a href="#files"><code>files</code></a> - The files checked out from the repository. Returns a map, with the keys being the file paths and the values being the file contents.</li>
 <li><a href="#branch"><code>branch</code></a> - The branch checked out from the repository. Returns a string.</li>
-<li><a href="#destination"><code>destination</code></a> - The destination where the repository is stored. </li>
+<li><a href="#destination"><code>destination</code></a> - The destination where the repository is stored.</li>
 </ul>
 <hr />
 <p><a id="auth"></a>
 The <code>auth</code> block supports:</p>
 <ul>
 <li><a href="#username"><code>username</code></a> - The username to be used. If password is specified, and if the username is empty, it falls back to <code>oauth2</code></li>
-<li><a href="#password"><code>password</code></a> - The password to be used for connecting to the private repository. </li>
+<li><a href="#password"><code>password</code></a> - The password to be used for connecting to the private repository.</li>
 </ul>
 
                     </main>
@@ -255,7 +262,7 @@ The <code>auth</code> block supports:</p>
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="../configuration/macro.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../configuration/macro.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -269,7 +276,7 @@ The <code>auth</code> block supports:</p>
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../configuration/macro.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../configuration/macro.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

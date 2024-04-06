@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -10,7 +10,7 @@
         
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="../favicon.svg">
         <link rel="shortcut icon" href="../favicon.png">
@@ -31,7 +31,7 @@
         <!-- Custom theme stylesheets -->
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
@@ -61,31 +61,38 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
+            var body = document.querySelector('body');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../features/introduction.html"><strong aria-hidden="true">2.</strong> Features</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../features/concurrency.html"><strong aria-hidden="true">2.1.</strong> Concurrency</a></li><li class="chapter-item expanded "><a href="../features/dependency.html"><strong aria-hidden="true">2.2.</strong> Dependency Resolution</a></li><li class="chapter-item expanded "><a href="../features/interpolation.html"><strong aria-hidden="true">2.3.</strong> Interpolation</a></li><li class="chapter-item expanded "><a href="../features/macros.html"><strong aria-hidden="true">2.4.</strong> Reusable Stages</a></li><li class="chapter-item expanded "><a href="../features/daemonizing.html"><strong aria-hidden="true">2.5.</strong> Daemonizing</a></li><li class="chapter-item expanded "><a href="../features/docker.html"><strong aria-hidden="true">2.6.</strong> Container Support</a></li><li class="chapter-item expanded "><a href="../features/outputs.html"><strong aria-hidden="true">2.7.</strong> Outputs</a></li></ol></li><li class="chapter-item expanded "><a href="../cli/introduction.html" class="active"><strong aria-hidden="true">3.</strong> Command Line Interface</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cli/usage.html"><strong aria-hidden="true">3.1.</strong> Usage</a></li></ol></li><li class="chapter-item expanded "><a href="../configuration/introduction.html"><strong aria-hidden="true">4.</strong> Configuration</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../configuration/togomak.html"><strong aria-hidden="true">4.1.</strong> Togomak</a></li><li class="chapter-item expanded "><a href="../configuration/stage.html"><strong aria-hidden="true">4.2.</strong> Stage</a></li><li class="chapter-item expanded "><a href="../configuration/locals.html"><strong aria-hidden="true">4.3.</strong> Locals</a></li><li class="chapter-item expanded "><a href="../configuration/data.html"><strong aria-hidden="true">4.4.</strong> Data</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../configuration/data_env.html"><strong aria-hidden="true">4.4.1.</strong> data.env</a></li><li class="chapter-item expanded "><a href="../configuration/data_prompt.html"><strong aria-hidden="true">4.4.2.</strong> data.prompt</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.4.3.</strong> data.file</div></li><li class="chapter-item expanded "><a href="../configuration/data_git.html"><strong aria-hidden="true">4.4.4.</strong> data.git</a></li></ol></li><li class="chapter-item expanded "><a href="../configuration/macro.html"><strong aria-hidden="true">4.5.</strong> Macro</a></li><li class="chapter-item expanded "><a href="../configuration/import.html"><strong aria-hidden="true">4.6.</strong> Import</a></li></ol></li><li class="chapter-item expanded "><a href="../contrib/plugins/introduction.html"><strong aria-hidden="true">5.</strong> Plugins</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">6.</strong> Contributing</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -116,9 +123,9 @@
                                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -176,18 +183,18 @@
 <li><code>unattended</code> (<code>--unattended</code>)</li>
 <li>Normal execution</li>
 </ul>
-<p>In <code>unattended</code> mode, all prompts and interactive options will be disabled. 
+<p>In <code>unattended</code> mode, all prompts and interactive options will be disabled.
 <code>ci</code> mode is same as unattended mode, but however, a separate variable will
-be defined in the pipeline <code>togomak.ci</code>, which can be used later to run 
-specific stages on CI, and only run certain stages on the user side. </p>
-<p>The <code>ci</code> mode is implicit on popular CICD providers like Jenkins, GitHub or 
+be defined in the pipeline <code>togomak.ci</code>, which can be used later to run
+specific stages on CI, and only run certain stages on the user side.</p>
+<p>The <code>ci</code> mode is implicit on popular CICD providers like Jenkins, GitHub or
 GitLab CI, etc. It requires one of the environment variables: <code>CI</code>, <code>TOGOMAK_CI</code>
 or the CLI flag <code>--ci</code> for it to be enabled.</p>
-<p>In the normal execution mode, prompts will pass through the pipeline execution, 
+<p>In the normal execution mode, prompts will pass through the pipeline execution,
 and it will wait indefinitely until the user enters the value.
 Similarly, Interrupts will be enabled on the normal execution mode.</p>
-<p>On the first <code>Ctrl + C</code> recevied from the user in the normal execution mode, 
-it will send <code>SIGTERM</code> to child stages, or will stop the docker container, in the 
+<p>On the first <code>Ctrl + C</code> recevied from the user in the normal execution mode,
+it will send <code>SIGTERM</code> to child stages, or will stop the docker container, in the
 case of docker container engines. The deadline in most cases would be 10 seconds.</p>
 <p>If a second <code>Ctrl + C</code> is received within the above deadline time, the child processes
 will be sent <code>SIGKILL</code> signal. In the case of docker containers, no action will be
@@ -202,7 +209,7 @@ Similarly, it is possible to have zombie processes.</p>
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="../cli/usage.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../cli/usage.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -216,7 +223,7 @@ Similarly, it is possible to have zombie processes.</p>
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../cli/usage.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../cli/usage.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

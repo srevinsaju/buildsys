@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -10,7 +10,7 @@
         
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="../favicon.svg">
         <link rel="shortcut icon" href="../favicon.png">
@@ -31,7 +31,7 @@
         <!-- Custom theme stylesheets -->
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
@@ -61,31 +61,38 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
+            var body = document.querySelector('body');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../features/introduction.html"><strong aria-hidden="true">2.</strong> Features</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../features/concurrency.html"><strong aria-hidden="true">2.1.</strong> Concurrency</a></li><li class="chapter-item expanded "><a href="../features/dependency.html"><strong aria-hidden="true">2.2.</strong> Dependency Resolution</a></li><li class="chapter-item expanded "><a href="../features/interpolation.html"><strong aria-hidden="true">2.3.</strong> Interpolation</a></li><li class="chapter-item expanded "><a href="../features/macros.html"><strong aria-hidden="true">2.4.</strong> Reusable Stages</a></li><li class="chapter-item expanded "><a href="../features/daemonizing.html"><strong aria-hidden="true">2.5.</strong> Daemonizing</a></li><li class="chapter-item expanded "><a href="../features/docker.html"><strong aria-hidden="true">2.6.</strong> Container Support</a></li><li class="chapter-item expanded "><a href="../features/outputs.html"><strong aria-hidden="true">2.7.</strong> Outputs</a></li></ol></li><li class="chapter-item expanded "><a href="../cli/introduction.html"><strong aria-hidden="true">3.</strong> Command Line Interface</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cli/usage.html" class="active"><strong aria-hidden="true">3.1.</strong> Usage</a></li></ol></li><li class="chapter-item expanded "><a href="../configuration/introduction.html"><strong aria-hidden="true">4.</strong> Configuration</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../configuration/togomak.html"><strong aria-hidden="true">4.1.</strong> Togomak</a></li><li class="chapter-item expanded "><a href="../configuration/stage.html"><strong aria-hidden="true">4.2.</strong> Stage</a></li><li class="chapter-item expanded "><a href="../configuration/locals.html"><strong aria-hidden="true">4.3.</strong> Locals</a></li><li class="chapter-item expanded "><a href="../configuration/data.html"><strong aria-hidden="true">4.4.</strong> Data</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../configuration/data_env.html"><strong aria-hidden="true">4.4.1.</strong> data.env</a></li><li class="chapter-item expanded "><a href="../configuration/data_prompt.html"><strong aria-hidden="true">4.4.2.</strong> data.prompt</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.4.3.</strong> data.file</div></li><li class="chapter-item expanded "><a href="../configuration/data_git.html"><strong aria-hidden="true">4.4.4.</strong> data.git</a></li></ol></li><li class="chapter-item expanded "><a href="../configuration/macro.html"><strong aria-hidden="true">4.5.</strong> Macro</a></li><li class="chapter-item expanded "><a href="../configuration/import.html"><strong aria-hidden="true">4.6.</strong> Import</a></li></ol></li><li class="chapter-item expanded "><a href="../contrib/plugins/introduction.html"><strong aria-hidden="true">5.</strong> Plugins</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">6.</strong> Contributing</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -116,9 +123,9 @@
                                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -168,11 +175,11 @@
                     <main>
                         <h1 id="usage"><a class="header" href="#usage">Usage</a></h1>
 <h2 id="basic-usage"><a class="header" href="#basic-usage">Basic Usage</a></h2>
-<p>By default, <code>togomak</code> runs all stages 
-which evaluates their condition <code>stage.xxx.if</code> to 
+<p>By default, <code>togomak</code> runs all stages
+which evaluates their condition <code>stage.xxx.if</code> to
 <code>true</code>. By default, all stages evaluate their
-condition to true, unless explicitly 
-specified. </p>
+condition to true, unless explicitly
+specified.</p>
 <p>To simply run all stages which meet the criteria,
 just do</p>
 <pre><code class="language-bash">togomak 
@@ -182,54 +189,54 @@ just do</p>
 directory, you could:</p>
 <pre><code class="language-bash">togomak -C path/to/different/dir
 </code></pre>
-<p>Similary, you can also explicitly specify 
-the path to <code>togomak.hcl</code> using the <code>-f</code> or 
+<p>Similary, you can also explicitly specify
+the path to <code>togomak.hcl</code> using the <code>-f</code> or
 the <code>--file</code> parameter.</p>
 <h2 id="running-specific-stages"><a class="header" href="#running-specific-stages">Running specific stages</a></h2>
-<p>If you would like to run only specific 
+<p>If you would like to run only specific
 stages, instead of the entire pipeline,
 you could do something like this:</p>
 <pre><code class="language-bash">togomak stage1 stage2 
 </code></pre>
-<p>This would run both <code>stage1</code>, <code>stage2</code> and 
+<p>This would run both <code>stage1</code>, <code>stage2</code> and
 all the dependencies of <code>stage1</code> and <code>stage2</code>.
 That means, if there were a stage <code>stage3</code>
 which depends on <code>stage1</code>, then <code>stage3</code> would
 also be included in the same pipeline.</p>
-<p>Now, you can also blacklist and whitelist 
+<p>Now, you can also blacklist and whitelist
 certain stages. Let us take the specific
 example of <code>togomak.hcl</code> which is used
-to build togomak itself, at the root of 
+to build togomak itself, at the root of
 this repository:</p>
 <pre><code class="language-hcl">togomak {
   version = 2
 }
 
 
-stage &quot;fmt&quot; {
-  script = &quot;go fmt github.com/srevinsaju/togomak/v1/...&quot;
+stage "fmt" {
+  script = "go fmt github.com/srevinsaju/togomak/v1/..."
 }
 
-stage &quot;vet&quot; {
-  script = &quot;go vet github.com/srevinsaju/togomak/v1/...&quot;
+stage "vet" {
+  script = "go vet github.com/srevinsaju/togomak/v1/..."
 }
 
-stage &quot;build&quot; {
+stage "build" {
   depends_on = [stage.fmt, stage.vet]
-  script     = &quot;go build -v -o ./cmd/togomak/togomak github.com/srevinsaju/togomak/v1/cmd/togomak&quot;
+  script     = "go build -v -o ./cmd/togomak/togomak github.com/srevinsaju/togomak/v1/cmd/togomak"
 }
 
-stage &quot;install&quot; {
+stage "install" {
   depends_on = [stage.build]
-  script     = &quot;go install github.com/srevinsaju/togomak/v1/cmd/togomak&quot;
+  script     = "go install github.com/srevinsaju/togomak/v1/cmd/togomak"
 }
 
-stage &quot;docs_serve&quot; {
+stage "docs_serve" {
   daemon {
     enabled = true
   }
   if     = false
-  script = &quot;cd docs &amp;&amp; mdbook serve&quot;
+  script = "cd docs &amp;&amp; mdbook serve"
 }
 </code></pre>
 <p>In the above example, doing <code>togomak build</code>
@@ -250,10 +257,10 @@ criteria.</p>
 <h3 id="running-a-specific-stage-alone"><a class="header" href="#running-a-specific-stage-alone">Running a specific stage alone</a></h3>
 <p>If you strictly want to run a single stage,
 and do not want to include its dependencies,
-or if you do not want to manually blacklist 
-all its dependencies, <code>togomak</code> has a 
+or if you do not want to manually blacklist
+all its dependencies, <code>togomak</code> has a
 special stage called the <code>root</code> stage,
-which will run regardless of the whitelist or the 
+which will run regardless of the whitelist or the
 blacklist.</p>
 <p>So, if you would like to run only <code>stage.build</code>
 and not <code>stage.install</code>, you could do:</p>
@@ -274,7 +281,7 @@ entry will be considered and the rest will be ignored.</p>
 you could do so by using the <code>+</code> operator.</p>
 <pre><code class="language-bash">togomak macro_name.build
 </code></pre>
-<p>or </p>
+<p>or</p>
 <pre><code class="language-bash">togomak macro_name.root +macro_name.build
 </code></pre>
 <p>and so on.</p>
@@ -289,7 +296,7 @@ stage name.</p>
 </code></pre>
 <p>This would run the <code>build</code> stage in the background,
 and will not wait for the build stage to complete
-before moving on to the next stage. However, 
+before moving on to the next stage. However,
 the <code>build</code> stage will be terminated once the last
 dependent of the <code>build</code> stage completes.</p>
 <p>Under the hood, the <code>build</code> stage will receive
@@ -297,11 +304,11 @@ a <code>SIGTERM</code> signal, and will be given a grace period
 of 10 seconds to complete. If the stage does not
 terminate within the grace period, it will be
 forcefully killed (<code>SIGKILL</code>).</p>
-<p>The above feature is particularly useful for 
-running long running stages, such as a docker 
+<p>The above feature is particularly useful for
+running long running stages, such as a docker
 service for performing integration tests.</p>
 <p>For extensive information about the daemonizing
-feature, refer to the <a href="../features/daemonizing.html">daemonizing</a> 
+feature, refer to the <a href="../features/daemonizing.html">daemonizing</a>
 section.</p>
 
                     </main>
@@ -312,7 +319,7 @@ section.</p>
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="../configuration/introduction.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../configuration/introduction.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -326,7 +333,7 @@ section.</p>
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../configuration/introduction.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../configuration/introduction.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
