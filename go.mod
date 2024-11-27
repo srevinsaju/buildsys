@@ -12,7 +12,7 @@ require (
 	github.com/bcicen/jstream v1.0.1
 	github.com/bmatcuk/doublestar v1.1.5
 	github.com/creack/pty v1.1.18
-	github.com/docker/docker v24.0.7+incompatible
+	github.com/docker/docker v24.0.9+incompatible
 	github.com/docker/go-connections v0.4.0
 	github.com/fatih/color v1.15.0
 	github.com/google/uuid v1.3.0
